@@ -68,17 +68,66 @@ public class CalculatorView extends JFrame {
         JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    // Diálogo simple para computar (luego lo mejoramos)
-    public String showComputeDialog(List<String> functionNames) {
-        String selected = (String) JOptionPane.showInputDialog(
-                this,
-                "Select Function:",
-                "Calculate",
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                functionNames.toArray(),
-                functionNames.get(0));
+    public String[] showComputeDialog(List<String> functionNames) {
+    JDialog dialog = new JDialog(this, "Select Function and Arguments", true);
+    dialog.setSize(400, 220);
+    dialog.setLocationRelativeTo(this);
+    dialog.setLayout(new BorderLayout(10, 10));
 
-        return selected;
-    }
+    JPanel panel = new JPanel(new GridLayout(0, 2, 10, 10));
+    panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+
+    JComboBox<String> combo = new JComboBox<>(functionNames.toArray(new String[0]));
+    JTextField arg1Field = new JTextField("0.0", 12);
+    JTextField arg2Field = new JTextField("0.0", 12);
+    JLabel arg2Label = new JLabel("Argument 2:");
+    arg2Label.setVisible(false);
+    arg2Field.setVisible(false);
+
+    // Listener para mostrar/ocultar arg2 según función (asumimos nombres que terminan en "2" o similar)
+    // Nota: idealmente deberíamos preguntar al modelo si es 1 o 2 args → lo mejoramos después
+    combo.addActionListener(e -> {
+        String selected = (String) combo.getSelectedItem();
+        boolean needsTwo = selected != null && 
+            (selected.equalsIgnoreCase("add") || 
+             selected.equalsIgnoreCase("subtract") || 
+             selected.equalsIgnoreCase("multiply") || 
+             selected.equalsIgnoreCase("divide") || 
+             selected.equalsIgnoreCase("power") || 
+             selected.contains("2"));  // temporal, luego usamos instanceof o metadata
+
+        arg2Label.setVisible(needsTwo);
+        arg2Field.setVisible(needsTwo);
+        if (!needsTwo) arg2Field.setText("");  // limpiar si no se usa
+    });
+
+    // Trigger inicial
+    combo.getActionListeners()[0].actionPerformed(null);
+
+    panel.add(new JLabel("Function:"));
+    panel.add(combo);
+    panel.add(new JLabel("Argument 1:"));
+    panel.add(arg1Field);
+    panel.add(arg2Label);
+    panel.add(arg2Field);
+
+    JButton okButton = new JButton("Calculate");
+    okButton.addActionListener(e -> dialog.dispose());
+
+    JPanel bottom = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+    bottom.add(okButton);
+    dialog.add(panel, BorderLayout.CENTER);
+    dialog.add(bottom, BorderLayout.SOUTH);
+
+    dialog.setVisible(true);
+
+    // Después de cerrar, devolvemos los valores
+    if (arg1Field.getText().isEmpty()) return null;
+
+    return new String[] {
+        (String) combo.getSelectedItem(),
+        arg1Field.getText().trim(),
+        arg2Field.getText().trim()
+    };
+}
 }

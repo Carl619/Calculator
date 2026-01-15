@@ -44,21 +44,38 @@ public class CalculatorController {
     private class ComputeAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            List<String> names = new ArrayList<>();
-            for (MathFunction f : model.getFunctions()) {
-                names.add(f.getName());
+            List<String> functionNames = model.getAvailableFunctions();
+        String[] input = view.showComputeDialog(functionNames);
+        if (input == null) return;
+
+        String fnName = input[0];
+        String arg1Str = input[1];
+        String arg2Str = input[2];
+
+        try {
+            double arg1 = Double.parseDouble(arg1Str);
+            double result;
+
+            if (arg2Str == null || arg2Str.trim().isEmpty()) {
+                result = model.doCalculation(fnName, arg1);
+            } else {
+                double arg2 = Double.parseDouble(arg2Str);
+                result = model.doCalculation(fnName, arg1, arg2);
             }
 
-            String selected = view.showComputeDialog(names);
-            if (selected == null) return;
+            view.showMessage("Result: " + result);
+            refreshHistory();
 
-            try {
-                double result = model.doCalculation(selected, 0);
-                view.showMessage("Result: " + result);
-                refreshHistory();
-            } catch (Exception ex) {
-                view.showError("Error: " + ex.getMessage());
-            }
+        } catch (NumberFormatException ex) {
+            view.showError("Format number error");
+        } catch (IllegalArgumentException ex) {
+            view.showError("Error: " + ex.getMessage());
+        } catch (Exception ex) {
+            view.showError("Error: " + ex.getMessage());
+            ex.printStackTrace(); // Para depuración en consola
+        }
+            
+            
         }
     }
 }
