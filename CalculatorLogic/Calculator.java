@@ -16,8 +16,6 @@ public interface Calculator {
 
     public double doCalculation(String functionName, double arg1, double arg2);
 
-    public void addFunction(MathFunction function);
-
     public void listMathFunction();
 
     public List<MathFunction> getFunctions();
