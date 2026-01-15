@@ -24,14 +24,12 @@ public class CalculatorView extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
 
-        // Historial
         historyTextArea = new JTextArea();
         historyTextArea.setEditable(false);
         historyTextArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
         historyTextArea.setMargin(new Insets(10, 10, 10, 10));
         add(new JScrollPane(historyTextArea), BorderLayout.CENTER);
 
-        // Panel de botones
         JPanel buttonsPanel = new JPanel(new GridLayout(1, 5, 10, 10));
         buttonsPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
@@ -54,7 +52,6 @@ public class CalculatorView extends JFrame {
         add(buttonsPanel, BorderLayout.SOUTH);
     }
 
-    // Métodos para que el Controller registre listeners
     public void addComputeListener(ActionListener l)    { computeButton.addActionListener(l); }
     public void addShowHistoryListener(ActionListener l) { showHistoryButton.addActionListener(l); }
     public void addUndoListener(ActionListener l)       { undoButton.addActionListener(l); }
@@ -62,7 +59,7 @@ public class CalculatorView extends JFrame {
     public void addExitListener(ActionListener l)       { exitButton.addActionListener(l); }
     public void addSaveListener(ActionListener l)          { saveButton.addActionListener(l); }
     public void addLoadListener(ActionListener l)          { loadButton.addActionListener(l); }
-    // Métodos para actualizar la vista
+
     public void setHistoryText(String text) {
         historyTextArea.setText(text);
         historyTextArea.setCaretPosition(historyTextArea.getDocument().getLength());
@@ -92,8 +89,6 @@ public class CalculatorView extends JFrame {
     arg2Label.setVisible(false);
     arg2Field.setVisible(false);
 
-    // Listener para mostrar/ocultar arg2 según función (asumimos nombres que terminan en "2" o similar)
-    // Nota: idealmente deberíamos preguntar al modelo si es 1 o 2 args → lo mejoramos después
     combo.addActionListener(e -> {
         String selected = (String) combo.getSelectedItem();
         if (selected != null) {
@@ -105,7 +100,6 @@ public class CalculatorView extends JFrame {
         }
     });
 
-    // Trigger inicial
     combo.getActionListeners()[0].actionPerformed(null);
 
     panel.add(new JLabel("Function:"));
@@ -125,7 +119,6 @@ public class CalculatorView extends JFrame {
 
     dialog.setVisible(true);
 
-    // Después de cerrar, devolvemos los valores
     if (arg1Field.getText().isEmpty()) return null;
 
     return new String[] {
