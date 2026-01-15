@@ -19,14 +19,12 @@ public class CalculatorController {
         this.model = model;
         this.view = view;
 
-        // Conectar acciones de botones
         view.addComputeListener(new ComputeAction());
         view.addShowHistoryListener(e -> refreshHistory());
         view.addUndoListener(e -> { model.undoLast(); refreshHistory(); });
         view.addClearListener(e -> { model.clearHistory(); refreshHistory(); });
         view.addExitListener(e -> System.exit(0));
 
-        // Carga inicial
         refreshHistory();
     }
 
@@ -34,7 +32,7 @@ public class CalculatorController {
         StringBuilder sb = new StringBuilder();
         List<String> hist = model.getHistory();
         if (hist.isEmpty()) {
-            sb.append("No hay operaciones aún.");
+            sb.append("No operations in history.");
         } else {
             for (String line : hist) {
                 sb.append(line).append("\n");
@@ -43,7 +41,6 @@ public class CalculatorController {
         view.setHistoryText(sb.toString());
     }
 
-    // Acción para el botón Computar
     private class ComputeAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -55,11 +52,9 @@ public class CalculatorController {
             String selected = view.showComputeDialog(names);
             if (selected == null) return;
 
-            // Aquí falta pedir argumentos → versión muy básica por ahora
-            // En la siguiente iteración añadimos campos para args
             try {
-                double result = model.doCalculation(selected, 0); // placeholder
-                view.showMessage("Resultado: " + result);
+                double result = model.doCalculation(selected, 0);
+                view.showMessage("Result: " + result);
                 refreshHistory();
             } catch (Exception ex) {
                 view.showError("Error: " + ex.getMessage());
