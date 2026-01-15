@@ -49,6 +49,10 @@ public class FlexCalculator implements Calculator{
         }
         return false;
     }
+    
+    public ArrayList<String> getHistory() {
+        return new ArrayList<>(history.getHistory());
+    }
 
     public double doCalculation(String functionName, double arg1, double arg2) {
         double result = 0.0;

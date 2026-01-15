@@ -50,6 +50,10 @@ public class HistoryCalculator
         }
     }
     
+    public ArrayList<String> getHistory() {
+        return new ArrayList<>(history);
+    }
+    
     public void printHistory()
     {
         System.out.println("Printing history:\n");

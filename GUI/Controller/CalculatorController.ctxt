@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=CalculatorController
+comment1.params=model\ view
+comment1.target=CalculatorController(CalculatorLogic.FlexCalculator,\ GUI.View.CalculatorView)
+comment2.params=
+comment2.target=void\ refreshHistory()
+numComments=3

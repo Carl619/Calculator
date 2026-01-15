@@ -1,15 +1,18 @@
 #BlueJ package file
-objectbench.height=89
+dependency1.from=FlexCalculator
+dependency1.to=HistoryCalculator
+dependency1.type=UsesDependency
+objectbench.height=88
 objectbench.width=760
 package.divider.horizontal=0.6
-package.divider.vertical=0.7978947368421052
+package.divider.vertical=0.797979797979798
 package.editor.height=372
-package.editor.width=670
-package.editor.x=709
-package.editor.y=238
+package.editor.width=647
+package.editor.x=461
+package.editor.y=209
 package.frame.height=575
 package.frame.width=800
-package.numDependencies=0
+package.numDependencies=1
 package.numTargets=3
 package.showExtends=true
 package.showUses=true

@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=CalculatorView
+comment1.params=
+comment1.target=CalculatorView()
+comment10.params=functionNames
+comment10.target=java.lang.String\ showComputeDialog(java.util.List)
+comment2.params=l
+comment2.target=void\ addComputeListener(java.awt.event.ActionListener)
+comment3.params=l
+comment3.target=void\ addShowHistoryListener(java.awt.event.ActionListener)
+comment4.params=l
+comment4.target=void\ addUndoListener(java.awt.event.ActionListener)
+comment5.params=l
+comment5.target=void\ addClearListener(java.awt.event.ActionListener)
+comment6.params=l
+comment6.target=void\ addExitListener(java.awt.event.ActionListener)
+comment7.params=text
+comment7.target=void\ setHistoryText(java.lang.String)
+comment8.params=msg
+comment8.target=void\ showMessage(java.lang.String)
+comment9.params=msg
+comment9.target=void\ showError(java.lang.String)
+numComments=11
