@@ -17,4 +17,9 @@ public class CosFunction implements SingleArgMathFunction {
     public double calculate(double arg) {
         return Math.cos(arg);
     }
+    
+    @Override
+    public MathFunction createClone() {
+        return new CosFunction();
+    }
 }

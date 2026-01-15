@@ -7,4 +7,6 @@ comment2.params=n
 comment2.target=long\ factorial(double)
 comment3.params=arg
 comment3.target=double\ calculate(double)
-numComments=4
+comment4.params=
+comment4.target=MathFunction\ createClone()
+numComments=5

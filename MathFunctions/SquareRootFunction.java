@@ -17,4 +17,9 @@ public class SquareRootFunction implements SingleArgMathFunction {
     public double calculate(double arg) {
         return Math.sqrt(arg);
     }
+    
+    @Override
+    public MathFunction createClone() {
+        return new SquareRootFunction();
+    }
 }

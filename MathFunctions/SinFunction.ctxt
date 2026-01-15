@@ -5,4 +5,6 @@ comment1.params=
 comment1.target=java.lang.String\ getName()
 comment2.params=arg
 comment2.target=double\ calculate(double)
-numComments=3
+comment3.params=
+comment3.target=MathFunction\ createClone()
+numComments=4

@@ -16,4 +16,9 @@ public class LogFunction implements SingleArgMathFunction
     public double calculate(double arg) { 
         return Math.log(arg); 
     }
+    
+    @Override
+    public MathFunction createClone() {
+        return new LogFunction();
+    }
 }

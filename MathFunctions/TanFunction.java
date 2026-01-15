@@ -17,4 +17,9 @@ public class TanFunction implements SingleArgMathFunction {
     public double calculate(double arg) {
         return Math.tan(arg);
     }
+    
+    @Override
+    public MathFunction createClone() {
+        return new TanFunction();
+    }
 }

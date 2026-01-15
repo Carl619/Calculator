@@ -15,4 +15,9 @@ public class LogNFunction implements DoubleArgMathFunction {
     public double calculate(double x, double y) { 
         return Math.log(x) / Math.log(y); 
     }
+    
+    @Override
+    public MathFunction createClone() {
+        return new LogNFunction();
+    }
 }

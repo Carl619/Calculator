@@ -25,4 +25,9 @@ public class FactFunction implements SingleArgMathFunction {
     public double calculate(double arg) {
         return factorial(arg);
     }
+    
+    @Override
+    public MathFunction createClone() {
+        return new FactFunction();
+    }
 }

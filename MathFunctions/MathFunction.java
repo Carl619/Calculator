@@ -9,4 +9,5 @@ package MathFunctions;
 public interface MathFunction {
 
     public String getName();
+    MathFunction createClone();
 }

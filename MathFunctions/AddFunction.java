@@ -15,4 +15,9 @@ public class AddFunction implements DoubleArgMathFunction {
     public double calculate(double x, double y) { 
         return x + y; 
     }
+    
+    @Override
+    public MathFunction createClone() {
+        return new AddFunction();
+    }
 }

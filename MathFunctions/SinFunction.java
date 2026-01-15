@@ -17,4 +17,9 @@ public class SinFunction implements SingleArgMathFunction {
     public double calculate(double arg) {
         return Math.sin(arg);
     }
+    
+    @Override
+    public MathFunction createClone() {
+        return new SinFunction();
+    }
 }

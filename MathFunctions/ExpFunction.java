@@ -15,4 +15,9 @@ public class ExpFunction implements SingleArgMathFunction {
     public double calculate(double x) { 
         return Math.exp(x); 
     }
+    
+    @Override
+    public MathFunction createClone() {
+        return new ExpFunction();
+    }
 }

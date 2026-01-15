@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=MathFunctionFactory
+comment1.params=function
+comment1.target=void\ register(MathFunction)
+comment2.params=name
+comment2.target=MathFunction\ create(java.lang.String)
+comment2.text=\r\n\ Intenta\ crear\ una\ nueva\ instancia\ de\ la\ funci\u00F3n.\r\n\ Devuelve\ null\ si\ no\ existe\ (en\ lugar\ de\ excepci\u00F3n\ inmediata)\r\n
+comment3.params=
+comment3.target=java.util.List\ getAvailableFunctionNames()
+comment4.params=name
+comment4.target=MathFunction\ createOrThrow(java.lang.String)
+numComments=5
