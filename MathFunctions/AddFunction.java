@@ -20,4 +20,9 @@ public class AddFunction implements DoubleArgMathFunction {
     public MathFunction createClone() {
         return new AddFunction();
     }
+    
+    @Override
+    public int getRequiredArguments() {
+    return 2;
+}
 }

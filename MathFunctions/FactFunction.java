@@ -30,4 +30,9 @@ public class FactFunction implements SingleArgMathFunction {
     public MathFunction createClone() {
         return new FactFunction();
     }
+    
+    @Override
+    public int getRequiredArguments() {
+    return 1;
+}
 }

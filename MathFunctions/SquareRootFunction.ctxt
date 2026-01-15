@@ -7,4 +7,6 @@ comment2.params=arg
 comment2.target=double\ calculate(double)
 comment3.params=
 comment3.target=MathFunction\ createClone()
-numComments=4
+comment4.params=
+comment4.target=int\ getRequiredArguments()
+numComments=5

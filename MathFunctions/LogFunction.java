@@ -21,4 +21,8 @@ public class LogFunction implements SingleArgMathFunction
     public MathFunction createClone() {
         return new LogFunction();
     }
+    @Override
+    public int getRequiredArguments() {
+    return 1;
+}
 }

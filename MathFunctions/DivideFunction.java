@@ -20,4 +20,9 @@ public class DivideFunction implements DoubleArgMathFunction {
     public MathFunction createClone() {
         return new DivideFunction();
     }
+    
+    @Override
+    public int getRequiredArguments() {
+    return 2;
+}
 }

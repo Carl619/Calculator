@@ -18,7 +18,8 @@ public class HistoryCalculator
 {
     // instance variables - replace the example below with your own
     private ArrayList<String> history;
-
+    private static final String HISTORY_FILE = "HistoryCalculator.txt";
+    
     /**
      * Constructor for objects of class HistoryCalculator
      */

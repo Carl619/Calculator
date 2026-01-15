@@ -20,4 +20,8 @@ public class MinusFunction implements DoubleArgMathFunction {
     public MathFunction createClone() {
         return new MinusFunction();
     }
+    @Override
+    public int getRequiredArguments() {
+    return 2;
+}
 }

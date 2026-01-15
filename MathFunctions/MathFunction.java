@@ -10,4 +10,5 @@ public interface MathFunction {
 
     public String getName();
     MathFunction createClone();
+    int getRequiredArguments();
 }

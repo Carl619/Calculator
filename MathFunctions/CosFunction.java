@@ -22,4 +22,8 @@ public class CosFunction implements SingleArgMathFunction {
     public MathFunction createClone() {
         return new CosFunction();
     }
+    @Override
+    public int getRequiredArguments() {
+    return 1;
+}
 }

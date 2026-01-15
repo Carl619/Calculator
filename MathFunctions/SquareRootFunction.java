@@ -22,4 +22,9 @@ public class SquareRootFunction implements SingleArgMathFunction {
     public MathFunction createClone() {
         return new SquareRootFunction();
     }
+    
+    @Override
+    public int getRequiredArguments() {
+    return 1;
+}
 }

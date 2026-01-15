@@ -20,4 +20,9 @@ public class MultiplyFunction implements DoubleArgMathFunction {
     public MathFunction createClone() {
         return new MultiplyFunction();
     }
+    
+    @Override
+    public int getRequiredArguments() {
+    return 2;
+}
 }

@@ -14,6 +14,7 @@ public class FlexCalculator implements Calculator{
 
     private double argument;
     private HistoryCalculator history;
+    private final List<CalculatorObserver> observers = new ArrayList<>();
     
     public FlexCalculator() {
     }
@@ -25,7 +26,7 @@ public class FlexCalculator implements Calculator{
                 result = ((SingleArgMathFunction)function).calculate(arg);
                 isFunctionFound = true;
                 history.registerOperation(function, arg,result);
-
+                notifyHistoryChanged();
         if(!isFunctionFound)
             System.out.println("No such function found!");
 
@@ -50,10 +51,12 @@ public class FlexCalculator implements Calculator{
         double result = 0.0;
         boolean isFunctionFound = false;
         MathFunction function = MathFunctionFactory.create(functionName);
-                result = ((DoubleArgMathFunction)function).calculate(arg1, arg2);
-                isFunctionFound = true;
-                history.registerOperation(function, arg1,arg2,result);
 
+        result = ((DoubleArgMathFunction)function).calculate(arg1, arg2);
+        isFunctionFound = true;
+        history.registerOperation(function, arg1,arg2,result);
+        notifyHistoryChanged();
+        
         if(!isFunctionFound)
             System.out.println("No such function found!");
 
@@ -80,17 +83,37 @@ public class FlexCalculator implements Calculator{
 
     public void undoLast() {
         history.undoLast();
+        notifyHistoryChanged();
     }
 
     public void clearHistory() {
         history.clearHistory();
+        notifyHistoryChanged();
     }
 
     public void saveHistory(){
         history.saveHistory();
+        notifyHistoryChanged();
     }
 
     public void loadHistory() {
         history.loadHistory();
+        notifyHistoryChanged();
     }
+    
+    public void addObserver(CalculatorObserver observer) {
+    if (observer != null && !observers.contains(observer)) {
+        observers.add(observer);
+    }
+}
+
+public void removeObserver(CalculatorObserver observer) {
+    observers.remove(observer);
+}
+
+private void notifyHistoryChanged() {
+    for (CalculatorObserver observer : new ArrayList<>(observers)) {
+        observer.onHistoryChanged();
+    }
+}
 }

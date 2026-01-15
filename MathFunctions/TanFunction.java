@@ -22,4 +22,9 @@ public class TanFunction implements SingleArgMathFunction {
     public MathFunction createClone() {
         return new TanFunction();
     }
+    
+    @Override
+    public int getRequiredArguments() {
+    return 1;
+}
 }

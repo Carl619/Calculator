@@ -20,4 +20,8 @@ public class LogNFunction implements DoubleArgMathFunction {
     public MathFunction createClone() {
         return new LogNFunction();
     }
+    @Override
+    public int getRequiredArguments() {
+    return 2;
+}
 }

@@ -20,4 +20,9 @@ public class ExpFunction implements SingleArgMathFunction {
     public MathFunction createClone() {
         return new ExpFunction();
     }
+    
+    @Override
+    public int getRequiredArguments() {
+    return 1;
+}
 }

@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.*;
 
 public class CalculatorView extends JFrame {
 
@@ -13,6 +14,8 @@ public class CalculatorView extends JFrame {
     private JButton undoButton;
     private JButton clearButton;
     private JButton exitButton;
+    private JButton saveButton;
+    private JButton loadButton;
 
     public CalculatorView() {
         setTitle("Calculator");
@@ -34,12 +37,16 @@ public class CalculatorView extends JFrame {
 
         computeButton     = new JButton("Calculate");
         showHistoryButton = new JButton("Show history");
+        saveButton        = new JButton("Save");
+        loadButton        = new JButton("Load");
         undoButton        = new JButton("Undo");
         clearButton       = new JButton("Clear");
         exitButton        = new JButton("Exit");
 
         buttonsPanel.add(computeButton);
         buttonsPanel.add(showHistoryButton);
+        buttonsPanel.add(saveButton);
+        buttonsPanel.add(loadButton);
         buttonsPanel.add(undoButton);
         buttonsPanel.add(clearButton);
         buttonsPanel.add(exitButton);
@@ -53,7 +60,8 @@ public class CalculatorView extends JFrame {
     public void addUndoListener(ActionListener l)       { undoButton.addActionListener(l); }
     public void addClearListener(ActionListener l)      { clearButton.addActionListener(l); }
     public void addExitListener(ActionListener l)       { exitButton.addActionListener(l); }
-
+    public void addSaveListener(ActionListener l)          { saveButton.addActionListener(l); }
+    public void addLoadListener(ActionListener l)          { loadButton.addActionListener(l); }
     // Métodos para actualizar la vista
     public void setHistoryText(String text) {
         historyTextArea.setText(text);
@@ -68,7 +76,7 @@ public class CalculatorView extends JFrame {
         JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    public String[] showComputeDialog(List<String> functionNames) {
+    public String[] showComputeDialog(List<String> functionNames, Map<String, Integer> argCountMap) {
     JDialog dialog = new JDialog(this, "Select Function and Arguments", true);
     dialog.setSize(400, 220);
     dialog.setLocationRelativeTo(this);
@@ -88,17 +96,13 @@ public class CalculatorView extends JFrame {
     // Nota: idealmente deberíamos preguntar al modelo si es 1 o 2 args → lo mejoramos después
     combo.addActionListener(e -> {
         String selected = (String) combo.getSelectedItem();
-        boolean needsTwo = selected != null && 
-            (selected.equalsIgnoreCase("add") || 
-             selected.equalsIgnoreCase("subtract") || 
-             selected.equalsIgnoreCase("multiply") || 
-             selected.equalsIgnoreCase("divide") || 
-             selected.equalsIgnoreCase("power") || 
-             selected.contains("2"));  // temporal, luego usamos instanceof o metadata
-
-        arg2Label.setVisible(needsTwo);
-        arg2Field.setVisible(needsTwo);
-        if (!needsTwo) arg2Field.setText("");  // limpiar si no se usa
+        if (selected != null) {
+            Integer required = argCountMap.getOrDefault(selected, 1);
+            boolean needsTwo = required == 2;
+            arg2Label.setVisible(needsTwo);
+            arg2Field.setVisible(needsTwo);
+            if (!needsTwo) arg2Field.setText("");
+        }
     });
 
     // Trigger inicial

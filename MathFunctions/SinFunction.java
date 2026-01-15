@@ -22,4 +22,8 @@ public class SinFunction implements SingleArgMathFunction {
     public MathFunction createClone() {
         return new SinFunction();
     }
+    @Override
+    public int getRequiredArguments() {
+    return 1;
+}
 }

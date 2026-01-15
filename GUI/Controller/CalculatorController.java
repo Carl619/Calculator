@@ -2,7 +2,10 @@ package GUI.Controller;
 
 import GUI.View.CalculatorView;
 import CalculatorLogic.FlexCalculator;
+import CalculatorLogic.CalculatorObserver;
 import MathFunctions.MathFunction;
+import MathFunctions.MathFunctionFactory;
+import java.util.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -10,7 +13,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CalculatorController {
+public class CalculatorController implements CalculatorObserver{
 
     private final FlexCalculator model;
     private final CalculatorView view;
@@ -18,16 +21,29 @@ public class CalculatorController {
     public CalculatorController(FlexCalculator model, CalculatorView view) {
         this.model = model;
         this.view = view;
-
+        
+        model.addObserver(this);
         view.addComputeListener(new ComputeAction());
         view.addShowHistoryListener(e -> refreshHistory());
         view.addUndoListener(e -> { model.undoLast(); refreshHistory(); });
         view.addClearListener(e -> { model.clearHistory(); refreshHistory(); });
         view.addExitListener(e -> System.exit(0));
+        view.addSaveListener(e -> {
+        model.saveHistory();
+        view.showMessage("History saved");
+    });
 
+    view.addLoadListener(e -> {
+        model.loadHistory();
+        view.showMessage("History loaded");
+    });
         refreshHistory();
     }
-
+    
+    @Override
+    public void onHistoryChanged() {
+        refreshHistory();
+    }
     private void refreshHistory() {
         StringBuilder sb = new StringBuilder();
         List<String> hist = model.getHistory();
@@ -45,7 +61,15 @@ public class CalculatorController {
         @Override
         public void actionPerformed(ActionEvent e) {
             List<String> functionNames = model.getAvailableFunctions();
-        String[] input = view.showComputeDialog(functionNames);
+            
+            Map<String, Integer> argCountMap = new HashMap<>();
+for (String name : functionNames) {
+    MathFunction f = MathFunctionFactory.create(name);
+    if (f != null) {
+        argCountMap.put(name, f.getRequiredArguments());
+    }
+}
+        String[] input = view.showComputeDialog(functionNames, argCountMap);
         if (input == null) return;
 
         String fnName = input[0];
@@ -72,7 +96,7 @@ public class CalculatorController {
             view.showError("Error: " + ex.getMessage());
         } catch (Exception ex) {
             view.showError("Error: " + ex.getMessage());
-            ex.printStackTrace(); // Para depuración en consola
+            ex.printStackTrace();
         }
             
             
