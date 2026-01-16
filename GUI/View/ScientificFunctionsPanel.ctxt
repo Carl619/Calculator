@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=ScientificFunctionsPanel
+comment1.params=
+comment1.target=ScientificFunctionsPanel()
+comment2.params=text
+comment2.target=javax.swing.JButton\ createFunctionButton(java.lang.String)
+comment3.params=listener
+comment3.target=void\ addFunctionListener(java.awt.event.ActionListener)
+comment3.text=\r\n\ Registra\ el\ mismo\ listener\ en\ TODOS\ los\ botones\ del\ panel\r\n
+numComments=4

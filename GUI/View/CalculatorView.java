@@ -16,6 +16,14 @@ public class CalculatorView extends JFrame {
     private JButton exitButton;
     private JButton saveButton;
     private JButton loadButton;
+    
+    private NumericKeypadPanel keypadPanel;
+    private ScientificFunctionsPanel functionsPanel;
+    private HistoryControlButtonsPanel historyAndControlsPanel;
+    
+    
+
+    private JTextField display;
 
     public CalculatorView() {
         setTitle("Calculator");
@@ -23,13 +31,22 @@ public class CalculatorView extends JFrame {
         setSize(600, 500);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
+        
+        // Display
+        display = new JTextField("0");
+        display.setFont(new Font("Arial", Font.BOLD, 36));
+        display.setHorizontalAlignment(SwingConstants.RIGHT);
+        display.setEditable(false);
+        add(display, BorderLayout.NORTH);
 
+        //History
         historyTextArea = new JTextArea();
         historyTextArea.setEditable(false);
         historyTextArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
         historyTextArea.setMargin(new Insets(10, 10, 10, 10));
         add(new JScrollPane(historyTextArea), BorderLayout.CENTER);
 
+        //Calculator Buttons Panel
         JPanel buttonsPanel = new JPanel(new GridLayout(1, 5, 10, 10));
         buttonsPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
@@ -50,19 +67,38 @@ public class CalculatorView extends JFrame {
         buttonsPanel.add(exitButton);
 
         add(buttonsPanel, BorderLayout.SOUTH);
+        
+        //Keypad Panel
+        keypadPanel = new NumericKeypadPanel();
+        add(keypadPanel, BorderLayout.CENTER);
+        
+        //Functions Panel
+        functionsPanel = new ScientificFunctionsPanel();
+        add(functionsPanel, BorderLayout.EAST);
+
+        //History Control Panel
+        historyAndControlsPanel = new HistoryControlButtonsPanel();
+    add(historyAndControlsPanel, BorderLayout.SOUTH);
     }
 
     public void addComputeListener(ActionListener l)    { computeButton.addActionListener(l); }
     public void addShowHistoryListener(ActionListener l) { showHistoryButton.addActionListener(l); }
-    public void addUndoListener(ActionListener l)       { undoButton.addActionListener(l); }
-    public void addClearListener(ActionListener l)      { clearButton.addActionListener(l); }
     public void addExitListener(ActionListener l)       { exitButton.addActionListener(l); }
-    public void addSaveListener(ActionListener l)          { saveButton.addActionListener(l); }
-    public void addLoadListener(ActionListener l)          { loadButton.addActionListener(l); }
+    
+    public void addNumberListener(ActionListener l) {
+        keypadPanel.addNumberListener(l);
+    }
 
-    public void setHistoryText(String text) {
-        historyTextArea.setText(text);
-        historyTextArea.setCaretPosition(historyTextArea.getDocument().getLength());
+    public void addOperatorListener(ActionListener l) {
+        keypadPanel.addOperatorListener(l);
+    }
+    
+    public void addEqualsListener(ActionListener l) {
+    keypadPanel.getEqualsButton().addActionListener(l);
+}
+
+    public void addClearListener(ActionListener l) {
+        keypadPanel.addClearListener(l);
     }
 
     public void showMessage(String msg) {
@@ -71,6 +107,43 @@ public class CalculatorView extends JFrame {
 
     public void showError(String msg) {
         JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    public void setDisplayText(String text) {
+        display.setText(text);
+    }
+
+    public String getDisplayText() {
+        return display.getText();
+    }
+
+public void clearDisplay() {
+    display.setText("0");
+}
+
+public void appendToDisplay(String text) {
+    display.setText(display.getText() + text);
+}
+    
+    public void addFunctionListener(ActionListener l) {
+    functionsPanel.addFunctionListener(l);
+}
+
+// Historial
+public void setHistoryText(String text) {
+    historyAndControlsPanel.setHistoryText(text);
+}
+
+public String getHistoryText() {
+    return historyAndControlsPanel.getHistoryText();
+}
+    
+    // Controles inferiores
+    public void addUndoListener(ActionListener l)   { historyAndControlsPanel.addUndoListener(l); }
+    public void addSaveListener(ActionListener l)   { historyAndControlsPanel.addSaveListener(l); }
+    public void addLoadListener(ActionListener l)   { historyAndControlsPanel.addLoadListener(l); }
+    public void addClearListenerFromControls(ActionListener l) {
+        historyAndControlsPanel.addClearListener(l);
     }
 
     public String[] showComputeDialog(List<String> functionNames, Map<String, Integer> argCountMap) {

@@ -1,9 +1,17 @@
 #BlueJ class context
 comment0.target=CalculatorController
 comment1.params=model\ view
-comment1.target=CalculatorController(FlexCalculator,\ GUI.View.CalculatorView)
+comment1.target=CalculatorController(CalculatorLogic.FlexCalculator,\ GUI.View.CalculatorView)
 comment2.params=
 comment2.target=void\ onHistoryChanged()
 comment3.params=
 comment3.target=void\ refreshHistory()
-numComments=4
+comment4.params=
+comment4.target=void\ clearDisplay()
+comment5.params=rawFunctionName
+comment5.target=void\ handleFunction(java.lang.String)
+comment6.params=label
+comment6.target=java.lang.String\ normalizeFunctionName(java.lang.String)
+comment7.params=value
+comment7.target=java.lang.String\ formatResult(double)
+numComments=8

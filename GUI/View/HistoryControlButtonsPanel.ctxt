@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=HistoryControlButtonsPanel
+comment1.params=
+comment1.target=HistoryControlButtonsPanel()
+comment2.params=text
+comment2.target=void\ setHistoryText(java.lang.String)
+comment3.params=
+comment3.target=java.lang.String\ getHistoryText()
+comment4.params=l
+comment4.target=void\ addUndoListener(java.awt.event.ActionListener)
+comment5.params=l
+comment5.target=void\ addSaveListener(java.awt.event.ActionListener)
+comment6.params=l
+comment6.target=void\ addLoadListener(java.awt.event.ActionListener)
+comment7.params=l
+comment7.target=void\ addClearListener(java.awt.event.ActionListener)
+numComments=8
